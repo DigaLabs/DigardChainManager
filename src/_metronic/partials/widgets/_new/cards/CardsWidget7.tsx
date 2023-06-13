@@ -6,7 +6,7 @@ type Props = {
   className: string
   description: string
   icon: boolean
-  stats: number
+  stats: string
   labelColor: string
   textColor: string
 }

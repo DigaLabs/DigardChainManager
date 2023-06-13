@@ -85,6 +85,7 @@ const DigardChainContextProvider: React.FC<Props> = ({
   watchTokenAssets,
 }: Props) => {
   const {account, chainId, provider, connector} = useWeb3React()
+  const [listeners, setListeners] = useState<any>(null);
   const [chainManager, setChainManager] = useState<DigardChainManager>(defaults.chainManager)
   const [wsProvider, setWsProvider] = useState<ethers.providers.WebSocketProvider>()
   const [isValidChain, setIsValidChain] = useState<boolean>(false)
@@ -124,7 +125,7 @@ const DigardChainContextProvider: React.FC<Props> = ({
         ],
       }
 
-      await tokenContract.contractOnEventListener(tokenFromFilter, (from, to, value) => {
+      let listener1 = await tokenContract.contractOnEventListener(tokenFromFilter, (from, to, value) => {
         setTokenBalanceChanged({
           from: from,
           to: to,
@@ -134,7 +135,7 @@ const DigardChainContextProvider: React.FC<Props> = ({
         })
       })
 
-      await tokenContract.contractOnEventListener(tokenToFilter, (from, to, value) => {
+      let listener2 = await tokenContract.contractOnEventListener(tokenToFilter, (from, to, value) => {
         setTokenBalanceChanged({
           from: from,
           to: to,
@@ -143,6 +144,8 @@ const DigardChainContextProvider: React.FC<Props> = ({
           isSum: true,
         })
       })
+
+      setListeners((prev) => [...prev, listener1, listener2]);
     }
   }
 
@@ -272,10 +275,21 @@ const DigardChainContextProvider: React.FC<Props> = ({
     if (account && chainId && chainManager) {
       initWatchingBalance(account)
       if (watchTokenAssets) {
-        initWatchingTokenBalances()
+        if(listeners) {
+          listeners.forEach((listener)=> {
+            listener.off();
+          });
+          setListeners(null);
+        }
       }
     }
   }, [account, chainId, chainManager])
+
+  useEffect(()=> {
+    if(listeners==null) {
+      initWatchingTokenBalances()
+    }
+  }, [listeners]);
 
   const values = {
     digardChainId: digardChainId,

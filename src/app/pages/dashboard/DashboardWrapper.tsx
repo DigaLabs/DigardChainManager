@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useContext, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { toAbsoluteUrl } from '../../../_metronic/helpers'
@@ -24,6 +24,15 @@ const DashboardPage: FC = () => {
   const [eldaTokenBalance, setEldaTokenBalance] = useState('0')
   const { chainBalanceInformation, tokenBalances } = useContext(DigardChainContext)
   const { convertToShortTx } = useContext(DigardChainContext)
+
+  useEffect(() => {
+    if (tokenBalances) {
+      const eldaToken = tokenBalances.find((f) => f.token === 'ELDAToken')
+      if (eldaToken) {
+        setEldaTokenBalance(eldaToken.balanceFormat)
+      }
+    }
+  }, [tokenBalances])
   return (
     <>
       {/* begin::Row */}
@@ -43,7 +52,7 @@ const DashboardPage: FC = () => {
                 className='h-md-50 mb-5 mb-xl-10'
                 description='Elda Token'
                 icon={false}
-                stats={Number(eldaTokenBalance)}
+                stats={eldaTokenBalance}
                 labelColor='dark'
                 textColor='gray-300'
               />

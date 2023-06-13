@@ -381,7 +381,8 @@ export class DigardContract extends Contract {
     eventName: string | ethers.EventFilter,
     callBack: (...args: Array<any>) => void
   ): Promise<any> {
-    this.on(eventName, callBack)
+    let listener = this.on(eventName, callBack)
+    return listener;
   }
 
   async contractLastHistoryEvent(eventName: string, args?: Array<any>): Promise<any | null> {
