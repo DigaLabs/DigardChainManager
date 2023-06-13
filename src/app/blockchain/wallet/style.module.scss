@@ -1,0 +1,13 @@
+.menu_link {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-bottom: solid 3px rgb(154, 142, 142);
+  margin-bottom: 20px;
+}
+
+.menu_link:hover {
+  background-color: black;
+  color: #00b2ff;
+}

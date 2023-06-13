@@ -1,0 +1,34 @@
+{
+    "1": {
+        "icon": "/media/logos/blockchain/eth-logo.svg",
+        "testnet": false
+    },
+    "5": {
+        "icon": "/media/logos/blockchain/eth-logo.svg",
+        "testnet": true
+    },
+    "42": {
+        "icon": "/media/logos/blockchain/eth-logo.svg",
+        "testnet": true
+    },
+    "56": {
+        "icon": "/media/logos/blockchain/bnb-logo.svg",
+        "testnet": false
+    },
+    "97": {
+        "icon": "/media/logos/blockchain/bnb-logo.svg",
+        "testnet": true
+    },
+    "137": {
+        "icon": "/media/logos/blockchain/matic-logo.svg",
+        "testnet": false
+    },
+    "43114": {
+        "icon": "/media/logos/blockchain/avax-logo.svg",
+        "testnet": false
+    },
+    "11155111": {
+        "icon": "/media/logos/blockchain/eth-logo.svg",
+        "testnet": true
+    }
+}
