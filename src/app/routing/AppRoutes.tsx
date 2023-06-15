@@ -11,33 +11,31 @@ import {PrivateRoutes} from './PrivateRoutes'
 import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 import {App} from '../App'
-import {PublicRoutes} from './PublicRoutes'
 
 /**
  * Base URL of the website.
  *
  * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
  */
+const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth()
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
         <Route element={<App />}>
           <Route path='error/*' element={<ErrorsPage />} />
           <Route path='logout' element={<Logout />} />
-          <Route path='*' element={<PublicRoutes />} />
-          <Route index element={<Navigate to='/dashboard' />} />
           {currentUser ? (
             <>
-              <Route path='account/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/account' />} />
+              <Route path='/*' element={<PrivateRoutes />} />
+              <Route index element={<Navigate to='/dashboard' />} />
             </>
           ) : (
             <>
               <Route path='auth/*' element={<AuthPage />} />
-              <Route path='account/*' element={<Navigate to='/auth' />} />
+              <Route path='*' element={<Navigate to='/auth' />} />
             </>
           )}
         </Route>

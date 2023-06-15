@@ -5,7 +5,7 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import style from './style.module.scss'
 import {useNavigate} from 'react-router-dom'
 import {toastErrorNotify} from '../../helper/toastHelper'
-
+import { toAbsoluteUrl } from '../helpers/helper'
 export default function MetaMaskConnector() {
   const navigate = useNavigate()
 
@@ -22,7 +22,7 @@ export default function MetaMaskConnector() {
             modalElement.setAttribute('aria-hidden', 'true')
             document.body.classList.remove('modal-open')
           }
-          navigate('/my-wallet')
+         
         })
         .catch((err) => {
           console.log(err)
@@ -49,7 +49,7 @@ export default function MetaMaskConnector() {
 
   return (
     <div onClick={connect} className={style.menu_link} data-bs-dismiss='modal' aria-label='Close'>
-      <img src='/media/images/wallet/metamask.svg' alt='Logo' width={50} height={50} />
+      <img src={toAbsoluteUrl('/media/images/wallet/metamask.svg')} alt='Logo' width={50} height={50} />
       &nbsp;<span className='cs-wallet_text'>Metamask</span>
     </div>
   )

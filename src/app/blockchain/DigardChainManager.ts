@@ -7,7 +7,6 @@ import DigardChainInformationFile from './configs/chainInformationConfig.json'
 import DigardChainExtendedInformationFile from './configs/chainExtInformationConfig.json'
 import {Injected} from './wallet/InjectedConnectors'
 import type {Connector} from '@web3-react/types'
-
 export interface DigardChainCurrency {
   name: string
   symbol: string
